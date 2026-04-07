@@ -7,6 +7,8 @@ type TransactionsState = {
   error: string | null;
 };
 
+const transactionsUrl = `${import.meta.env.BASE_URL}data/transactions.json`;
+
 export function useTransactions(): TransactionsState {
   const [state, setState] = useState<TransactionsState>({
     transactions: [],
@@ -17,7 +19,7 @@ export function useTransactions(): TransactionsState {
   useEffect(() => {
     let isMounted = true;
 
-    fetch('/data/transactions.json')
+    fetch(transactionsUrl)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Unable to load transactions.');
