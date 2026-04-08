@@ -84,26 +84,13 @@ export function formatDailyPoints(points: number) {
 
 export function calculateDailyPoints(now = new Date()) {
   const seasonDay = getSeasonDay(now);
-
-  if (seasonDay === 1) {
-    return 2;
-  }
-
-  if (seasonDay === 2) {
-    return 3;
-  }
-
-  let twoDaysAgo = 2;
-  let yesterday = 3;
-  let today = 0;
+  const points = [2, 3];
 
   for (let day = 3; day <= seasonDay; day += 1) {
-    today = Math.round(twoDaysAgo + yesterday * 0.6);
-    twoDaysAgo = yesterday;
-    yesterday = today;
+    points[day - 1] = 0.6 * points[day - 2] + points[day - 3];
   }
 
-  return today;
+  return formatDailyPoints(points[seasonDay - 1]);
 }
 
 function getSeasonDay(date: Date) {

@@ -3,7 +3,7 @@ import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import { useMemo } from 'react';
 import { TransactionRow } from '../components/TransactionRow';
 import { useTransactions } from '../hooks/useTransactions';
-import { calculateDailyPoints, formatCurrency, formatDailyPoints } from '../utils/formatters';
+import { calculateDailyPoints, formatCurrency } from '../utils/formatters';
 
 const CARD_LIMIT = 1500;
 
@@ -11,7 +11,7 @@ export function TransactionsList() {
   const { transactions, isLoading, error } = useTransactions();
   const cardBalance = useMemo(() => Math.round((12 + Math.random() * 70) * 100) / 100, []);
   const available = CARD_LIMIT - cardBalance;
-  const dailyPoints = formatDailyPoints(calculateDailyPoints());
+  const dailyPoints = calculateDailyPoints();
   const latestTransactions = transactions.slice(0, 10);
 
   return (
